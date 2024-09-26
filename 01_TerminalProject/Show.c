@@ -75,13 +75,15 @@ main(int argc, char *argv[])
 	refresh();
 
 	//win = newwin(LINES - 2 * DX, COLS - 2 * DX, DX, DX);
-	win = newwin(LINES, COLS, DX, DX);
+	win = newwin(LINES - 2 * DX, COLS - 2 * DX, DX, DX);
 	keypad(win, TRUE);
 	scrollok(win, TRUE);
 
-        box(win, 0, 0); 
-        wmove(win, 1, 0); 
-
+        //box(win, 0, 0); 
+        //wmove(win, 1, 0); 
+	
+	mvprintw(0, 0, "%s", argv[1]);
+	refresh();
 	bool running = true;
 	int offsetX = 0, offsetY = 0;
         while(running) {
