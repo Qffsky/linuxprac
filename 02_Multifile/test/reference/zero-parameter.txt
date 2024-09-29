@@ -1,2 +1,2 @@
-./prog v0.00: Print all arguments
-	Usage: ./prog arg1 [arg2 […]]
+./app v0.00: Print all arguments
+	Usage: ./app arg1 [arg2 […]]
