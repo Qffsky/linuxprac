@@ -6,40 +6,46 @@ randarray () {
 	echo $outarray
 }
 
-echo "There are $# args"
-echo "$1"
+addchar () {
+	arr[$((3 * $1))]=$4
+        arr[$((3 * $1 + 1))]=$2
+     	arr[$((3 * $1 + 2))]=$3
+}
 
 COLS=$(tput cols)
 LINES=$(tput lines)
 SLEEP=$1
 
-X=0
 Y=0
 idx=0
 declare -a arr
 while IFS='\n' read -r line
 do
+	X=0
 	for ((i=0; i < ${#line}; i++ ));
 	do
-		printf "char: %q %q %q\n" ${line:i:1} $X $Y
-		arr[$((3 * $idx))]=${line:i:1}
-		arr[$((3 * $idx + 1))]=$X
-		arr[$((3 * $idx + 2))]=$Y
+		case ${line:i:1} in
+			' ')
+				;;
+			*)
+				addchar $idx $X $Y ${line:i:1}
+				;;
+		esac
 		X=$(($X + 1))
 		idx=$(($idx + 1))
 	done
 	Y=$(($Y + 1))
 done
 
-echo ${arr[15]}
-echo $idx
-
 clear
-tput sc
 for i in $(randarray $idx)
 do
+	tput home
 	tput cup ${arr[$((3 * $i + 2))]} ${arr[$((3 * $i + 1))]}
+	sleep ${SLEEP:-0}
 	printf "%b" ${arr[$((3 * $i))]}
-	tput rc
+	#echo ${arr[$((3 * $i))]}
 	
 done
+
+tput cup $LINES 0
