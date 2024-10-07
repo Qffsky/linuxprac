@@ -37,16 +37,16 @@ do
 	Y=$(($Y + 1))
 done
 
-tput sgr0
 clear
+tput home
 for i in $(randarray $idx)
 do
 	tput home
 	tput cup ${arr[$((3 * $i + 2))]} ${arr[$((3 * $i + 1))]}
 	sleep ${SLEEP:-0}
 	printf "%b" ${arr[$((3 * $i))]}
-	#echo ${arr[$((3 * $i))]}
-	
 done
 
+tput home
+tput dl 1
 tput cup $LINES 0
