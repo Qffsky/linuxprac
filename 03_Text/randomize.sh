@@ -16,7 +16,7 @@ COLS=$(tput cols)
 LINES=$(tput lines)
 SLEEP=$1
 
-Y=0
+Y=1
 idx=0
 declare -a arr
 while IFS='\n' read -r line
@@ -37,6 +37,7 @@ do
 	Y=$(($Y + 1))
 done
 
+tput sgr0
 clear
 for i in $(randarray $idx)
 do
