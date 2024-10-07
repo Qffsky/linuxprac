@@ -16,7 +16,7 @@ COLS=$(tput cols)
 LINES=$(tput lines)
 SLEEP=$1
 
-Y=1
+Y=0
 idx=0
 declare -a arr
 while IFS='\n' read -r line
@@ -42,11 +42,17 @@ tput home
 for i in $(randarray $idx)
 do
 	tput home
-	tput cup ${arr[$((3 * $i + 2))]} ${arr[$((3 * $i + 1))]}
+	x=${arr[$((3 * $i + 1))]}
+	y=${arr[$((3 * $i + 2))]}
+	if [ -z "$x" ] ; then
+		continue
+	fi
+	if [ -z "$y" ] ; then
+		continue
+	fi
+	tput cup $y $x
 	sleep ${SLEEP:-0}
 	printf "%b" ${arr[$((3 * $i))]}
 done
 
-tput home
-tput dl 1
 tput cup $LINES 0
