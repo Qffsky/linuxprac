@@ -4,6 +4,7 @@ typedef struct range {
 	int start;
 	int stop;
 	int step;
+	int current;
 } range;
 
 void range_init(struct range *R);
